@@ -59,6 +59,8 @@ class RecordInput(Gtk.Window):
         self.ResetButton = Gtk.Button(label="Reset Form")
         self.ResetButton.connect("clicked", self.Reset)
 
+        # Arrangements of widgets (buttons, combo box's etc)
+        # In widget container
         Grid = Gtk.Grid()
         Grid.attach(self.SeasonsInput, 2, 1, 1, 1)
         Grid.attach(self.SeasonLabel, 1, 1, 1, 1)
