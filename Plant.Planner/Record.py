@@ -1,4 +1,5 @@
 import gi
+from os import getcwd, path
 
 gi.require_version("Gtk", "3.0")
 
@@ -95,7 +96,8 @@ class RecordInput(Gtk.Window):
             self.VegButton.set_sensitive(True)
 
     def SaveVeg(self, SaveButton):
-        f = open("{0}-{1}.csv".format(self.Season, self.Year), "a+")
+        CompleteName = path.join(getcwd(), "{0}-{1}.csv".format(self.Season, self.Year))
+        f = open(CompleteName, "a+")
         for Vegetable in self.VegList:
             f.write(Vegetable + ",")
 
