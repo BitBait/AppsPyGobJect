@@ -9,7 +9,7 @@ class CheckHistory(Gtk.Window):
         super(CheckHistory, self).__init__()
 
         # Variables to store the seasonal state in and what veg have been planted
-        self.Season = None
+        self.Season = "Spring"
         self.Year = None
         self.VegList = []
         self.VegStr = ""
@@ -23,8 +23,13 @@ class CheckHistory(Gtk.Window):
         )
 
         css = b"""
-        #VegLabel {
-            font: 20px Sans;
+        label {
+            font-family: Montserrat;
+        }
+        radiobutton {
+            font-size: 125%;
+            font-weight: 500;  
+            margin: 5px          
         }
         """
 
@@ -33,6 +38,8 @@ class CheckHistory(Gtk.Window):
         # Create the seasons toggle radio buttons
         self.Spring = Gtk.RadioButton.new_with_label_from_widget(None, "Spring")
         self.Spring.connect("toggled", self.SetSeason)
+        self.Spring.set_property("name", "Spring")
+
         self.Summer = Gtk.RadioButton.new_with_label_from_widget(self.Spring, "Summer")
         self.Summer.connect("toggled", self.SetSeason)
         self.Autumn = Gtk.RadioButton.new_with_label_from_widget(self.Spring, "Autumn")
@@ -62,7 +69,7 @@ class CheckHistory(Gtk.Window):
         Grid.attach(self.Autumn, 1, 3, 1, 1)
         Grid.attach(self.Winter, 1, 4, 1, 1)
         Grid.attach(self.YearsInput, 2, 1, 1, 1)
-        Grid.attach(self.Confirm, 2, 3, 1, 1)
+        Grid.attach(self.Confirm, 2, 4, 1, 1)
         Grid.attach(self.VegLabel, 1, 5, 4, 4)
 
         self.add(Grid)
