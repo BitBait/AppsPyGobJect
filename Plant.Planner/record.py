@@ -112,7 +112,8 @@ class RecordInput(Gtk.Window):
         self.VegButton.set_sensitive(False)
 
 
-RecordInputWindow = RecordInput()
-RecordInputWindow.connect("destroy", Gtk.main_quit)
-RecordInputWindow.show_all()
-Gtk.main()
+if __name__ == "__main":
+    RecordInputWindow = RecordInput()
+    RecordInputWindow.connect("destroy", Gtk.main_quit)
+    RecordInputWindow.show_all()
+    Gtk.main()

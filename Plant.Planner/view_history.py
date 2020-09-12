@@ -13,7 +13,7 @@ class CheckHistory(Gtk.Window):
         self.Year = None
         self.VegList = []
         self.VegStr = ""
-
+        '''
         # CSS and styling
         Screen = Gdk.Screen.get_default()
         Provider = Gtk.CssProvider()
@@ -34,7 +34,7 @@ class CheckHistory(Gtk.Window):
         """
 
         Provider.load_from_data(css)
-
+        '''
         # Create the seasons toggle radio buttons
         self.Spring = Gtk.RadioButton.new_with_label_from_widget(None, "Spring")
         self.Spring.connect("toggled", self.SetSeason)
@@ -94,7 +94,9 @@ class CheckHistory(Gtk.Window):
         print(self.VegList)
         self.VegLabel.set_text(self.VegStr)
 
-CheckHistoryWindow = CheckHistory()
-CheckHistoryWindow.connect("destroy", Gtk.main_quit)
-CheckHistoryWindow.show_all()
-Gtk.main()
+
+if __name__ == "__main":
+    CheckHistoryWindow = CheckHistory()
+    CheckHistoryWindow.connect("destroy", Gtk.main_quit)
+    CheckHistoryWindow.show_all()
+    Gtk.main()
