@@ -1,14 +1,10 @@
 import gi
-import importlib
 from record import RecordInput
 from view_history import CheckHistory
 
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
-
-importlib.import_module("record")
-importlib.import_module("view_history")
 
 class Greeter(Gtk.Window):
     def __init__(self):
