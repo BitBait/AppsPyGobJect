@@ -58,27 +58,31 @@ class CheckHistory(Gtk.Window):
         self.Confirm.connect("clicked", self.AddVeg)
 
         # Veg Label
-        self.VegLabel = Gtk.Label(label="None")
-        self.VegLabel.set_property("name", "VegLabel")
+        # self.VegLabel = Gtk.Label(label="None")
+        # self.VegLabel.set_property("name", "VegLabel")
+
+        # VegGrid
+        self.VegGrid = Gtk.Grid()
 
         # Arrangements of widgets (buttons, combo box's etc)
         # In widget container
-        Grid = Gtk.Grid()
-        Grid.attach(self.Spring, 1, 1, 1, 1)
-        Grid.attach(self.Summer, 1, 2, 1, 1)
-        Grid.attach(self.Autumn, 1, 3, 1, 1)
-        Grid.attach(self.Winter, 1, 4, 1, 1)
-        Grid.attach(self.YearsInput, 2, 1, 1, 1)
-        Grid.attach(self.Confirm, 2, 4, 1, 1)
-        Grid.attach(self.VegLabel, 1, 5, 4, 4)
+        self.Grid = Gtk.Grid()
+        self.Grid.attach(self.Spring, 1, 1, 1, 1)
+        self.Grid.attach(self.Summer, 1, 2, 1, 1)
+        self.Grid.attach(self.Autumn, 1, 3, 1, 1)
+        self.Grid.attach(self.Winter, 1, 4, 1, 1)
+        self.Grid.attach(self.YearsInput, 2, 1, 1, 1)
+        self.Grid.attach(self.Confirm, 2, 4, 1, 1)
+        self.Grid.attach(self.VegGrid, 1, 5, 2, 2)
 
-        self.add(Grid)
+        self.add(self.Grid)
 
     def SetSeason(self, Button):
         self.Season = Button.get_label()
         print(self.Season)
 
     def AddVeg(self, Confirm):
+        self.VegList = []
         self.Year = self.YearsInput.get_active_text()
         file = open("{0}-{1}.csv".format(self.Season, self.Year), "r")
         List = file.read()
@@ -92,11 +96,18 @@ class CheckHistory(Gtk.Window):
                 CurrentStr += item
 
         print(self.VegList)
-        self.VegLabel.set_text(self.VegStr)
 
+        self.Grid.remove(self.VegGrid)
+        self.VegGrid = Gtk.Grid()
 
-if __name__ == "__main":
-    CheckHistoryWindow = CheckHistory()
-    CheckHistoryWindow.connect("destroy", Gtk.main_quit)
-    CheckHistoryWindow.show_all()
-    Gtk.main()
+        for item in range(len(self.VegList)):
+                label = Gtk.Label(label=self.VegList[item])
+                self.VegGrid.attach(label, 1, item, 1, 1)
+
+        self.Grid.attach(self.VegGrid, 1, 5, 1, 1)
+        self.show_all()
+
+CheckHistoryWindow = CheckHistory()
+CheckHistoryWindow.connect("destroy", Gtk.main_quit)
+CheckHistoryWindow.show_all()
+Gtk.main()

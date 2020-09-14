@@ -118,9 +118,8 @@ class NoteBook(Gtk.Window):
         self.Confirm = Gtk.Button(label="Confirm choice")
         self.Confirm.connect("clicked", self.AddVeg)
 
-        # Veg Label
-        self.VegLabel = Gtk.Label(label="None")
-        self.VegLabel.set_property("name", "VegLabel")
+        # Veg Grid as a nicer way of showing what has been planted
+        self.VegGrid = Gtk.Grid()
 
         # Arrangements of widgets (buttons, combo box's etc)
         # In widget container
@@ -131,8 +130,7 @@ class NoteBook(Gtk.Window):
         self.Grid.attach(self.Winter, 1, 4, 1, 1)
         self.Grid.attach(self.YearsInput, 2, 1, 1, 1)
         self.Grid.attach(self.Confirm, 2, 4, 1, 1)
-        self.Grid.attach(self.VegLabel, 1, 5, 4, 4)
-
+        self.Grid.attach(self.VegGrid, 3, 1, 1, len(self.VegList))
         return self.Grid
 
     # Function relating to the input of the vegetable values
@@ -189,6 +187,7 @@ class NoteBook(Gtk.Window):
 
     # Function to set (and reset) the veg text displayed in the text widget
     def AddVeg(self, Confirm):
+        self.VegList = []
         self.Year = self.YearsInput.get_active_text()
         file = open("{0}-{1}.csv".format(self.Season, self.Year), "r")
         List = file.read()
@@ -202,7 +201,22 @@ class NoteBook(Gtk.Window):
                 CurrentStr += item
 
         print(self.VegList)
-        self.VegLabel.set_text(self.VegStr)
+
+        self.Grid.remove(self.VegGrid)
+        self.VegGrid = Gtk.Grid()
+
+        i = 1
+        j = 1
+        for item in range(len(self.VegList)):
+            label = Gtk.Label(label=self.VegList[item] + ",")
+            self.VegGrid.attach(label, i, j, 1, 1)
+            i += 1
+            if i == 5:
+                i = 1
+                j += 1
+
+        self.Grid.attach(self.VegGrid, 3, 1, 1, len(self.VegList))
+        self.show_all()
 
 Window = NoteBook()
 Window.connect("destroy", Gtk.main_quit)
